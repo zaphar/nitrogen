@@ -8,7 +8,6 @@
 	start/0,
 	start/1,
 	stop/0,
-	init/1,
 	start_server/0,
 	route/1,
 	request/1,
@@ -24,21 +23,16 @@
 	get_scratch_directory/0
 ]).
 
+
 start() -> start(undefined).
 
 start(ServingApp) when is_atom(ServingApp) -> 
-	supervisor:start_link(?MODULE, [ServingApp]).
+    application:set_env(nitrogen, serving_app, ServingApp),
+    NitrogenServer = {quickstart_sup, 
+	{nitrogen, start_server, []}, 
+	permanent, 2000, worker, dynamic},
+    nitrogen_sup:start_link([NitrogenServer]).
 
-init([ServingApp]) ->
-	application:set_env(nitrogen, serving_app, ServingApp),
-	RestartStrategy = one_for_one,
-	MaxRestarts = 1000,
-	MaxSecondsBetweenRestarts = 3600,
-	SupFlags = {RestartStrategy, MaxRestarts, MaxSecondsBetweenRestarts},
-	NitrogenServer = {quickstart_sup, {nitrogen, start_server, []}, permanent, 2000, worker, dynamic},
-	SessionServer  = {wf_session_server, {wf_session_server, start_link, []}, permanent, 2000, worker, [wf_session_server]},
-	SessionSup     = {wf_session_sup, {wf_session_sup, start_link, []}, permanent, 2000, supervisor, [wf_session_sup]},
-	{ok,{SupFlags,[NitrogenServer, SessionServer, SessionSup]}}.
 
 start_server() ->
 	HooksModule = get_hooks_module(),
