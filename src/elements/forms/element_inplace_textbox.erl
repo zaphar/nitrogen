@@ -46,9 +46,9 @@ render(ControlID, Record) ->
 				#event { type=mouseout, target=MouseOverID, actions=#hide{} }
 			]},
 			#panel { id=EditPanelID, class="edit", body=[
-				#textbox { id=TextBoxID, text=Text, next=OKButtonID },
-				#button { id=OKButtonID, text="OK", actions=OKEvent#event { type=click } },
-				#button { id=CancelButtonID, text="Cancel", actions=CancelEvent#event { type=click } }
+				#textbox { id=TextBoxID, class="text", text=Text, next=OKButtonID },
+				#button { id=OKButtonID, class="ok", text="OK", actions=OKEvent#event { type=click } },
+				#button { id=CancelButtonID, class="cancel", text="Cancel", actions=CancelEvent#event { type=click } }
 			]}
 		]
 	},
