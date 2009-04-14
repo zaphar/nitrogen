@@ -35,9 +35,9 @@ body() ->
 	
 	% Start a process to listen for messages,
 	% and then tell the chatroom that we would like to join.
-	Pid = wf:comet(fun() -> listen_for_messages() end),
-	chatroom!{join, Pid},
-
+	Pid = wf:comet2(fun listen_for_messages/1),
+	chatroom ! {join, Pid},
+	
 	wf:render(Body).
 	
 
@@ -49,20 +49,20 @@ event(chat) ->
 	
 event(_) -> ok.
 
-listen_for_messages() ->
-	receive	{message, UserName, Message} -> 	
-		Terms = [
-			#p{},
-			#span { text=UserName, class=username }, ": ",
-			#span { text=Message, class=message }
-		],
-		wf:insert_bottom(chatHistory, Terms),
-		wf:wire("obj('chatHistory').scrollTop = obj('chatHistory').scrollHeight;"),
-		wf:comet_flush()	
-	end,
-	listen_for_messages().
 
-%%% CHATROOM %%%
+%%% Listener %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+listen_for_messages({message, UserName, Message}) -> 	
+    Terms = [
+	#p{},
+	#span { text=UserName, class=username }, ": ",
+	#span { text=Message, class=message }
+    ],
+    wf:insert_bottom(chatHistory, Terms),
+    wf:wire("obj('chatHistory').scrollTop = obj('chatHistory').scrollHeight;").
+
+
+%%% CHATROOM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 ensure_chatroom_running() ->
 	ChatPid = whereis(chatroom),
