@@ -27,7 +27,7 @@ handle_request(Module) ->
 	
 	% Do the event...
 	case EventType of
-		comet -> handle_comet_request();
+		comet -> handle_comet_request(Tag);
 		continuation -> handle_continuation_request(Module1, Tag);
 		_ -> handle_normal_request(Module1, TriggerID, Tag)
 	end.
@@ -36,8 +36,8 @@ handle_request(Module) ->
 
 %%% COMET REQUEST %%%
 
-handle_comet_request() -> 
-	Content = wf_comet:get_content(),
+handle_comet_request({comet, AgentPid}) -> 
+	Content = wf_comet2:get_content(AgentPid),
 	wf_platform:set_response_body(Content),
 	wf_platform:build_response().
 

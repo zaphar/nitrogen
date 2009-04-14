@@ -97,6 +97,7 @@
 -record(animate, {?ACTION_BASE(action_animate), options=[], speed=500, easing=swing}).
 -record(buttonize, {?ACTION_BASE(action_buttonize)}).
 -record(comet_start, {?ACTION_BASE(action_comet_start)}).
+-record(comet2_start, {?ACTION_BASE(action_comet2_start), agent}).
 
 %%% Validators %%%
 -define(VALIDATOR_BASE(Module), module=Module, text="Failed.").

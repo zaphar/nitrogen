@@ -103,6 +103,7 @@ continue(Tag, Function, Interval, Timeout) -> wf_continuation:continue(Tag, Func
 
 comet(Function) -> wf_comet:comet(Function).
 comet_flush() -> wf_comet:comet_flush().
+comet2(Handler) -> wf_comet2:comet(Handler).
 
 
 %%% WF_REDIRECT %%%
