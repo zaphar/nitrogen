@@ -13,12 +13,12 @@
 
 add_content_script([]) -> ok;
 add_content_script(Script) ->
-	Script1 = lists:flatten([Script,"\r\n"]),
+	Script1 = [Script,"\r\n"],
 	put(wf_content_script, [Script1|get(wf_content_script)]).
 
 add_script([]) -> ok;
 add_script(Script) ->
-	Script1 = lists:flatten([Script,"\r\n"]),
+	Script1 = [Script,"\r\n"],
 	put(wf_script, [Script1|get(wf_script)]).
 
 get_script() -> get_script(true).
@@ -58,4 +58,4 @@ get_script(IncludeStateScript) ->
 		true -> wf_state:get_state_script();
 		false -> []
 	end,
-	lists:flatten([WFStateScript, FirstPass, SecondPass]).
+	[WFStateScript, FirstPass, SecondPass].

@@ -35,8 +35,5 @@ run_module_main(Module) ->
 	end,
 
 	% Call render if it has not already been called.
-	case wf:is_string(Body) of
-		true -> Body;
-		false -> wf:render(Body)
-	end.
+	wf:render(Body).
 
