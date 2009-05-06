@@ -123,11 +123,9 @@ build_response() ->
 	Body = get(wf_response_body),
 
 	% Send the yaws response...
-	lists:flatten([
-		{status, get(wf_response_code)},
-		get(wf_headers),
-		{content, ContentType, Body}
-	]).
+	[{status, get(wf_response_code)},
+	 get(wf_headers),
+	 {content, ContentType, Body}].
 
 
 %%% SOCKETS %%%
