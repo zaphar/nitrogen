@@ -132,8 +132,8 @@ expand_args(Args, Bindings) -> expand_args(Args, Bindings, 0, []).
 
 expand_args([], _Bindings, Len, Acc) -> {Len, lists:reverse(Acc)};
 expand_args([A|Tail], Bindings, Len, Acc) ->
-    case lists:keyfind(list_to_atom(A), 1, Bindings) of
-	{_, Expansion} -> Arg = Expansion;
+    case lists:keysearch(list_to_atom(A), 1, Bindings) of
+	{value, {_, Expansion}} -> Arg = Expansion;
 	false -> Arg = A
     end,
     expand_args(Tail, Bindings, Len+1, [Arg|Acc]).
