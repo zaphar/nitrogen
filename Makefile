@@ -1,9 +1,14 @@
-all: compile test
+all: compile
 
 compile:
 	mkdir -p ebin
 	mkdir -p test/ebin
 	erl -make
+
+debug:
+	mkdir -p ebin
+	mkdir -p test/ebin
+	ERL_LIBS=deps erl -noinput -run make all debug_info -run init stop
 
 clean:
 	rm -rf ./coverage/*.*
