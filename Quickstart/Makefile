@@ -1,8 +1,5 @@
-NITROGEN_SRC=..
-
 compile: 
 	erl -make
-	
+
 clean:
-	rm -rf ./ebin/*.*
-	make -C ${NITROGEN_SRC} clean
+	rm -rf ./ebin/*.beam

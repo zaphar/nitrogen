@@ -1,4 +1,10 @@
 *.dump
 .DS_Store
-http_servers
 coverage
+.hgignore
+*.beam
+rel/nitrogen
+TAGS
+builds
+Quickstart/static/nitrogen
+Quickstart/static/doc
